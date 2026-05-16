@@ -128,7 +128,7 @@ DASHBOARD_HTML = r"""
     .header-title {
         margin: 0;
         color: var(--foreground);
-        font-size: clamp(1.05rem, 1.4vw, 1.32rem);
+        font-size: clamp(1.22rem, 1.65vw, 1.55rem);
         line-height: 1.18;
         font-weight: var(--font-weight-medium);
         letter-spacing: -0.02em;
@@ -236,7 +236,7 @@ DASHBOARD_HTML = r"""
     .section-title {
         margin: 0 0 13px;
         color: var(--foreground);
-        font-size: 0.9rem;
+        font-size: 0.98rem;
         line-height: 1.2;
         font-weight: var(--font-weight-medium);
         letter-spacing: -0.01em;
@@ -668,6 +668,37 @@ DASHBOARD_HTML = r"""
         margin: 0;
         padding: 6px 8px;
         font-size: 0.7rem;
+    }
+
+
+    .delete-record-btn {
+        width: 28px;
+        height: 28px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--red);
+        display: inline-grid;
+        place-items: center;
+        cursor: pointer;
+        transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .delete-record-btn:hover {
+        background: var(--red-soft);
+        border-color: var(--red-line);
+    }
+
+    .delete-record-btn:active {
+        transform: scale(0.96);
+    }
+
+    .delete-record-btn svg {
+        width: 15px;
+        height: 15px;
+        stroke-width: 2;
     }
 
     .table-wrap {
@@ -1528,7 +1559,15 @@ function renderHistory() {
                 <td>${formatSeconds(record.processing_time_sec ?? record.processing_time)}</td>
                 <td><span class="badge ${statusClass}">${escapeHtml(status)}</span></td>
                 <td>
-                    <button class="button button-danger-lite" title="Delete record" onclick="deleteRecord('${escapeHtml(id)}')">🗑</button>
+                    <button class="delete-record-btn" title="Delete record" aria-label="Delete record" onclick="deleteRecord('${escapeHtml(id)}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 6h18"></path>
+                            <path d="M8 6V4h8v2"></path>
+                            <path d="M19 6l-1 14H6L5 6"></path>
+                            <path d="M10 11v6"></path>
+                            <path d="M14 11v6"></path>
+                        </svg>
+                    </button>
                 </td>
             </tr>
         `;
