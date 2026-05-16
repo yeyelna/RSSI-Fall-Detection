@@ -560,49 +560,84 @@ DASHBOARD_HTML = r"""
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 9px;
+        gap: 12px;
         flex-wrap: wrap;
-        padding: 20px 4px 4px;
+        padding: 20px 4px 6px;
     }
 
     .flow-step {
-        min-width: 72px;
-        max-width: 104px;
+        min-width: 82px;
+        max-width: 106px;
         display: grid;
         justify-items: center;
-        gap: 6px;
+        gap: 8px;
         text-align: center;
     }
 
     .flow-icon {
-        width: 28px;
-        height: 28px;
+        width: 56px;
+        height: 56px;
         display: grid;
         place-items: center;
-        border: 0;
-        background: transparent;
-        font-size: 1.05rem;
-        font-weight: 500;
+        border-radius: 0.875rem;
+        border: 1px solid transparent;
     }
 
-    .flow-step:nth-child(1) .flow-icon { color: #2563eb; }
-    .flow-step:nth-child(3) .flow-icon { color: #06b6d4; }
-    .flow-step:nth-child(5) .flow-icon { color: #a855f7; }
-    .flow-step:nth-child(7) .flow-icon { color: #0ea5e9; }
-    .flow-step:nth-child(9) .flow-icon { color: #7c3aed; }
-    .flow-step:nth-child(11) .flow-icon { color: var(--red); }
+    .flow-icon svg {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2;
+    }
+
+    .flow-icon.file {
+        color: #2563eb;
+        background: #dbeafe;
+        border-color: #bfdbfe;
+    }
+
+    .flow-icon.signal {
+        color: #7c3aed;
+        background: #f3e8ff;
+        border-color: #e9d5ff;
+    }
+
+    .flow-icon.transform {
+        color: #16a34a;
+        background: #dcfce7;
+        border-color: #bbf7d0;
+    }
+
+    .flow-icon.mtff {
+        color: #0891b2;
+        background: #cffafe;
+        border-color: #a5f3fc;
+    }
+
+    .flow-icon.model {
+        color: #4f46e5;
+        background: #e0e7ff;
+        border-color: #c7d2fe;
+    }
+
+    .flow-icon.output {
+        color: var(--red);
+        background: #fee2e2;
+        border-color: #fecaca;
+    }
 
     .flow-label {
-        color: #475569;
-        font-size: 0.66rem;
+        color: #334155;
+        font-size: 0.74rem;
         font-weight: 400;
-        line-height: 1.2;
+        line-height: 1.22;
     }
 
     .flow-arrow {
-        color: #cbd5e1;
-        font-size: 0.78rem;
+        color: #94a3b8;
+        font-size: 1.05rem;
         font-weight: 400;
+        line-height: 1;
+        margin-top: -20px;
     }
 
     .flow-vertical { display: none; }
@@ -858,6 +893,18 @@ DASHBOARD_HTML = r"""
             font-size: 0.78rem;
         }
 
+        .vertical-step .flow-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 0.65rem;
+            flex: 0 0 auto;
+        }
+
+        .vertical-step .flow-icon svg {
+            width: 19px;
+            height: 19px;
+        }
+
         .step-number {
             width: 24px;
             height: 24px;
@@ -952,33 +999,62 @@ DASHBOARD_HTML = r"""
             <article class="card panel">
                 <h2 class="section-title">System Processing Flow</h2>
                 <div class="flow-horizontal" aria-label="System processing flow">
-                    <div class="flow-step"><div class="flow-icon">01</div><div class="flow-label">MATLAB .mat File</div></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step"><div class="flow-icon">02</div><div class="flow-label">RSSI Signal</div></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step"><div class="flow-icon">03</div><div class="flow-label">FFT + STFT + CWT</div></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step"><div class="flow-icon">04</div><div class="flow-label">MTFF</div></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step"><div class="flow-icon">05</div><div class="flow-label">LightGBM Model</div></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step"><div class="flow-icon">06</div><div class="flow-label">Fall / Non-Fall</div></div>
+                    <div class="flow-step">
+                        <div class="flow-icon file">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="7" ry="3"></ellipse><path d="M5 5v14c0 1.7 3.1 3 7 3s7-1.3 7-3V5"></path><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"></path></svg>
+                        </div>
+                        <div class="flow-label">MATLAB<br>.mat File</div>
+                    </div>
+                    <div class="flow-arrow">›</div>
+                    <div class="flow-step">
+                        <div class="flow-icon signal">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 20v-2"></path><path d="M9 20v-6"></path><path d="M13 20V9"></path><path d="M17 20V5"></path><path d="M21 20V3"></path></svg>
+                        </div>
+                        <div class="flow-label">RSSI<br>Signal</div>
+                    </div>
+                    <div class="flow-arrow">›</div>
+                    <div class="flow-step">
+                        <div class="flow-icon transform">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg>
+                        </div>
+                        <div class="flow-label">FFT + STFT<br>+ CWT</div>
+                    </div>
+                    <div class="flow-arrow">›</div>
+                    <div class="flow-step">
+                        <div class="flow-icon mtff">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"></path></svg>
+                        </div>
+                        <div class="flow-label">MTFF</div>
+                    </div>
+                    <div class="flow-arrow">›</div>
+                    <div class="flow-step">
+                        <div class="flow-icon model">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="7" ry="3"></ellipse><path d="M5 5v14c0 1.7 3.1 3 7 3s7-1.3 7-3V5"></path><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"></path></svg>
+                        </div>
+                        <div class="flow-label">LightGBM<br>Model</div>
+                    </div>
+                    <div class="flow-arrow">›</div>
+                    <div class="flow-step">
+                        <div class="flow-icon output">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m4 14 5-5 4 4 7-7"></path><path d="M14 6h6v6"></path></svg>
+                        </div>
+                        <div class="flow-label">Fall /<br>Non-Fall</div>
+                    </div>
                 </div>
                 <div class="flow-vertical">
-                    <div class="vertical-step"><span class="step-number">1</span><strong>MATLAB .mat File</strong></div>
-                    <div class="vertical-step"><span class="step-number">2</span><strong>RSSI Signal</strong></div>
-                    <div class="vertical-step"><span class="step-number">3</span><strong>FFT + STFT + CWT</strong></div>
-                    <div class="vertical-step"><span class="step-number">4</span><strong>MTFF</strong></div>
-                    <div class="vertical-step"><span class="step-number">5</span><strong>LightGBM Model</strong></div>
-                    <div class="vertical-step"><span class="step-number">6</span><strong>Fall / Non-Fall</strong></div>
+                    <div class="vertical-step"><span class="flow-icon file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="7" ry="3"></ellipse><path d="M5 5v14c0 1.7 3.1 3 7 3s7-1.3 7-3V5"></path><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"></path></svg></span><span>MATLAB .mat File</span></div>
+                    <div class="vertical-step"><span class="flow-icon signal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 20v-2"></path><path d="M9 20v-6"></path><path d="M13 20V9"></path><path d="M17 20V5"></path><path d="M21 20V3"></path></svg></span><span>RSSI Signal</span></div>
+                    <div class="vertical-step"><span class="flow-icon transform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg></span><span>FFT + STFT + CWT</span></div>
+                    <div class="vertical-step"><span class="flow-icon mtff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"></path></svg></span><span>MTFF</span></div>
+                    <div class="vertical-step"><span class="flow-icon model"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="7" ry="3"></ellipse><path d="M5 5v14c0 1.7 3.1 3 7 3s7-1.3 7-3V5"></path><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"></path></svg></span><span>LightGBM Model</span></div>
+                    <div class="vertical-step"><span class="flow-icon output"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m4 14 5-5 4 4 7-7"></path><path d="M14 6h6v6"></path></svg></span><span>Fall / Non-Fall</span></div>
                 </div>
             </article>
 
             <article class="card panel">
-                <h2 class="section-title">Technical Model Info</h2>
+                <h2 class="section-title">Technical Model Information</h2>
                 <div id="modelInfoGrid" class="info-grid">
                     <div class="info-item"><div class="info-label">Model</div><div class="info-value">MTFF</div></div>
-                    <div class="info-item"><div class="info-label">Internal model</div><div class="info-value secondary">Balanced_COMB</div></div>
                     <div class="info-item"><div class="info-label">Classifier</div><div class="info-value">LightGBM</div></div>
                     <div class="info-item"><div class="info-label">Feature Method</div><div class="info-value">Multi-Transform Feature Fusion</div></div>
                     <div class="info-item"><div class="info-label">Feature Order</div><div class="info-value">FFT + STFT + CWT</div></div>
@@ -1195,13 +1271,10 @@ function sanitizeFeatureOrder(value) {
 
 function renderModelInfo() {
     const threshold = cleanThreshold(getModelField(["decision_threshold", "threshold"], 0.79));
-    const internalModel = getModelField(["internal_model", "model_name", "feature_set"], "Balanced_COMB");
-
     document.getElementById("modelStatus").textContent = "Model: MTFF";
 
     const items = [
         ["Model", "MTFF", ""],
-        ["Internal model", internalModel, "secondary"],
         ["Classifier", getModelField(["classifier", "model_type"], "LightGBM"), ""],
         ["Feature Method", getModelField(["feature_method"], "Multi-Transform Feature Fusion"), ""],
         ["Feature Order", sanitizeFeatureOrder(getModelField(["feature_order"], "FFT + STFT + CWT")), ""],
